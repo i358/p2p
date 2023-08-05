@@ -3,29 +3,40 @@ import "./styles/App.scss";
 import "./styles/tailwind.css";
 import { socket } from './utils/socket'
 const App = () => {
-    const [isConnected, setConnected] = useState(socket.connected)
-    const [ getTest, setTest ] = useState("No messages received.")
+    const [isConnected, setConnected] = useState<boolean>(socket.connected)
+    const [messages, setMessages] = useState<any>([])
     useEffect(() => {
-        const established = () => {  
+        const established = (): void => {
             setConnected(socket.connected)
+            socket.emit("message", {content:"Socket connected, send your first message!"})
         }
-        const disconnected = () => {
+        const disconnected = (): void => {
             setConnected(socket.connected)
+            setMessages((oldMessages: string[]) => [...oldMessages, { content: "Socket disconnected." }])
         }
-        const messageOn = (message:any) => {
-            setTest(message.content || "unknown message")
+        const onMessage = (message: any): void => {
+            setMessages((oldMessages: string[]) => [...oldMessages, { content: message.content ?? "undefined" }])
         }
         socket.on("connect", established)
-        socket.on("message", messageOn)
+        socket.on("message", onMessage)
         socket.on("disconnect", disconnected)
-    }, [])  
+    }, [])
 
-    return ( 
+    return (
         <>
-            <div className="grid text-[white] text-[45px] font-[600] place-items-center h-[100%]">
-                Socket: {isConnected ? "Connected" : "Disconnected"}
-                <br/> 
-                Last Message: {getTest}
+            <div>
+                {
+
+                    messages.map((message: any, id: any) => {
+                        return (
+                            <p key={id}>
+                                {message.content}
+                            </p>
+                        )
+                    })
+
+                }
+
             </div>
         </>
     )
