@@ -1,0 +1,24 @@
+{
+  "name": "socket",
+  "version": "1.0.0",
+  "main": "dist/bin/sock.js",
+  "author": "i358",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "dev": "conc \"tsc -w\" \"tsc-alias -w\" \"nodemon .\"",
+    "compile": "tsc && tsc-alias"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "moment": "^2.29.4",
+    "ngrok": "^5.0.0-beta.2",
+    "redis": "^4.6.7",
+    "socket.io": "^4.7.1",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1"
+  }
+}
