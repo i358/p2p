@@ -4,7 +4,7 @@ import "./styles/tailwind.css";
 import { socket } from './utils/socket'
 const App = () => {
     const [isConnected, setConnected] = useState(socket.connected)
-    const [ getTest, setTest ] = useState("Not any messages received.")
+    const [ getTest, setTest ] = useState("No messages received.")
     useEffect(() => {
         const established = () => {  
             setConnected(socket.connected)
@@ -24,6 +24,7 @@ const App = () => {
         <>
             <div className="grid text-[white] text-[45px] font-[600] place-items-center h-[100%]">
                 Socket: {isConnected ? "Connected" : "Disconnected"}
+                <br/> 
                 Last Message: {getTest}
             </div>
         </>
