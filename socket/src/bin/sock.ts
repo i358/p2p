@@ -33,6 +33,9 @@ try {
 
         })
         */
+       socket.on("message", (message:any)=>{
+        io.emit("message", message)
+       })
         socket.on("encrypt", async (payload: { payload: string, secret?: { iv?: Buffer, key?: Buffer } }, ack) => {
             let crypter = new Crypter();
             let data = await crypter.encrypt(payload.payload, payload.secret).catch((err) => { ack ? ack({ err }) : log(`{disturb} Encountered an error at "encrypt" listener on socket recognized as "${socket.id} -> ` + err, colors.red) })
