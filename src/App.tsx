@@ -8,35 +8,42 @@ const App = () => {
     useEffect(() => {
         const established = (): void => {
             setConnected(socket.connected)
-            socket.emit("message", {content:"Socket connected, send your first message!"})
+            socket.on("message", onMessage)
+            socket.emit("message", { content: "Socket connected, send your first message!" })
         }
         const disconnected = (): void => {
             setConnected(socket.connected)
+            socket.removeListener("message")
             setMessages((oldMessages: string[]) => [...oldMessages, { content: "Socket disconnected." }])
+
         }
         const onMessage = (message: any): void => {
             setMessages((oldMessages: string[]) => [...oldMessages, { content: message.content ?? "undefined" }])
         }
-        socket.on("connect", established)
-        socket.on("message", onMessage)
+        socket.on("connect", established) 
         socket.on("disconnect", disconnected)
     }, [])
 
     return (
         <>
-            <div>
-                {
+            <div className="grid grid-rows-[90%,10%] h-[100%]">
+                <div>
+                    {
 
-                    messages.map((message: any, id: any) => {
-                        return (
-                            <p key={id}>
-                                {message.content}
-                            </p>
-                        )
-                    })
+                        messages.map((message: any, id: any) => {
+                            return (
+                                <p key={id}>
+                                    {message.content}
+                                </p>
+                            )
+                        })
 
-                }
+                    }
 
+                </div>
+                <div>
+                  <input type="text" className="w-[100%] p-4 r-[5px]" />
+                </div>
             </div>
         </>
     )
