@@ -6,17 +6,17 @@ const App = () => {
     let [isConnected, setConnected] = useState(socket.connected)
     useEffect(() => {
         const established = () => {  
-            setConnected(true)
+            setConnected(socket.connected)
         }
         const disconnected = () => {
-            setConnected(false)
+            setConnected(socket.connected)
         }
 
         socket.on("connect", established)
         socket.on("disconnect", disconnected)
     }, [])  
 
-    return (
+    return ( 
         <>
             <div className="grid text-[white] text-[45px] font-[600] place-items-center h-[100%]">
                 Socket: {isConnected ? "Connected" : "Disconnected"}
