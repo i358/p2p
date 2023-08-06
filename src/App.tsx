@@ -10,9 +10,7 @@ const App = () => {
   useEffect(() => {
     const established = (): void => {
       setConnected(socket.connected);
-      socket.removeListener("message");
       socket.emit("message", { content: `"${socket.id}" is here!` });
-
       socket.on("message", onMessage);
     };
 
