@@ -12,7 +12,7 @@ const App = () => {
             setConnected(socket.connected)
             socket.removeListener("message")
             socket.emit("message", { content: `"${socket.id}" is here!` })
-            
+
             socket.on("message", onMessage)
         }
 
@@ -28,14 +28,14 @@ const App = () => {
         socket.on("disconnect", disconnected)
     }, [])
     const checkMessage = (key: any) => {
-        if (key.keyCode === 13 && message.length>0){
-            socket.emit("message", { content: message }) 
+        if (key.keyCode === 13 && message.length > 0) {
+            socket.emit("message", { content: message })
             setMessage(inputRef.current.value);
             inputRef.current.value = "";
             key.preventDefault();
         }
     }
-    const updateTextBox = (e:any) => {
+    const updateTextBox = (e: any) => {
         setMessage(e.target.value)
     }
     return (
@@ -56,9 +56,9 @@ const App = () => {
 
                 </div>
                 <div className="grid items-end">
-                 <div className="bg-[#1c212d70] p-[.8rem_.6rem]">
-                 <textarea ref={inputRef} onChange={updateTextBox} onKeyDown={checkMessage} placeholder="Type somethings..." className="resize-none w-[100%] text-[18px] outline-[0] text-[#d2d2d2] placeholder-[#595d69] max-h-[28vh] p-[.70rem_1rem] rounded-[5px] h-[3.1rem] bg-[#1c212d]" />
-                 </div>
+                    <div className="bg-[#1c212d70] p-[.8rem_.6rem]">
+                        <textarea ref={inputRef} onChange={updateTextBox} onKeyDown={checkMessage} placeholder="Type somethings..." className="resize-none w-[100%] text-[18px] outline-[0] text-[#d2d2d2] placeholder-[#595d69] max-h-[28vh] p-[.70rem_1rem] rounded-[5px] h-[3.1rem] bg-[#1c212d]" />
+                    </div>
                 </div>
             </div>
         </>
