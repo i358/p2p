@@ -8,4 +8,4 @@
 2.
 
 
-![a2_2](https://i.imgur.com/0ywKU2K.png) ![a2](https://i.imgur.com/XhSv8hq.png)
+![a2](https://i.imgur.com/BBMvi0r.png)
