@@ -1,33 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./styles/App.scss";
 import "./styles/tailwind.css";
 import { socket } from './utils/socket'
 const App = () => {
     const [isConnected, setConnected] = useState<boolean>(socket.connected)
     const [messages, setMessages] = useState<any>([])
+    const [message, setMessage] = useState<any>("")
+    const inputRef = useRef<any>(null)
     useEffect(() => {
         const established = (): void => {
             setConnected(socket.connected)
+            socket.removeListener("message")
             socket.on("message", onMessage)
             socket.emit("message", { content: "Socket connected, send your first message!" })
         }
+
         const disconnected = (): void => {
             setConnected(socket.connected)
-            socket.removeListener("message")
             setMessages((oldMessages: string[]) => [...oldMessages, { content: "Socket disconnected." }])
 
         }
         const onMessage = (message: any): void => {
             setMessages((oldMessages: string[]) => [...oldMessages, { content: message.content ?? "undefined" }])
         }
-        socket.on("connect", established) 
+        socket.on("connect", established)
         socket.on("disconnect", disconnected)
     }, [])
-
+    const checkMessage = (key: any) => {
+        if (key.keyCode === 13 && message.length>0){
+            socket.emit("message", { content: message }) 
+            setMessage(inputRef.current.value);
+            inputRef.current.value = "";
+            key.preventDefault();
+        }
+    }
+    const updateTextBox = (e:any) => {
+        setMessage(e.target.value)
+    }
     return (
         <>
-            <div className="grid grid-rows-[90%,10%] h-[100%]">
-                <div>
+            <div className="grid grid-rows-[70vh,30vh] h-[100%]">
+                <div className="p-[1rem_1rem]">
                     {
 
                         messages.map((message: any, id: any) => {
@@ -41,8 +54,10 @@ const App = () => {
                     }
 
                 </div>
-                <div>
-                  <input type="text" className="w-[100%] p-4 r-[5px]" />
+                <div className="grid items-end">
+                 <div className="bg-[#1c212d70] p-[.8rem_.6rem]">
+                 <textarea ref={inputRef} onChange={updateTextBox} onKeyDown={checkMessage} placeholder="Type somethings..." className="resize-none w-[100%] text-[18px] outline-[0] text-[#d2d2d2] placeholder-[#595d69] max-h-[28vh] p-[.70rem_1rem] rounded-[5px] h-[3.1rem] bg-[#1c212d]" />
+                 </div>
                 </div>
             </div>
         </>
