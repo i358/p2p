@@ -4,42 +4,40 @@ import "./styles/tailwind.css";
 import { socket } from "./utils/socket";
 const App = () => {
   const [isConnected, setConnected] = useState<boolean>(socket.connected);
-  const [messages, setMessages] = useState<any>([]);
+  const [messages, setMessages] = useState<string[]>([]);
   const [message, setMessage] = useState<any>("");
   const inputRef = useRef<any>(null);
   useEffect(() => {
     const established = (): void => {
       setConnected(socket.connected);
-      socket.emit("message", { content: `"${socket.id}" is here!` });
+      emitMessage({ content: `"${socket.id}" is here!` });
       socket.on("message", onMessage);
     };
-
     const disconnected = (): void => {
       setConnected(socket.connected);
-      setMessages((oldMessages: string[]) => [
-        ...oldMessages,
-        { content: "Socket disconnected." },
-      ]);
+      addMessage({ content: "Socket disconnected." });
     };
     const onMessage = (message: any): void => {
-      setMessages((oldMessages: string[]) => [
-        ...oldMessages,
-        { content: message.content ?? "undefined" },
-      ]);
+      addMessage(message);
     };
     socket.on("connect", established);
     socket.on("disconnect", disconnected);
   }, []);
-  const checkMessage = (key: any) => {
+  const checkMessage = (key: any): void => {
     if (key.keyCode === 13 && message.length > 0) {
-      socket.emit("message", { content: message });
       setMessage(inputRef.current.value);
       inputRef.current.value = "";
       key.preventDefault();
     }
   };
-  const updateTextBox = (e: any) => {
+  const updateTextBox = (e: any): void => {
     setMessage(e.target.value);
+  };
+  const emitMessage = (m: any) => {
+    socket.emit("message", m);
+  };
+  const addMessage = (m: any): void => {
+    setMessages((oldMessages: any) => [...oldMessages, m]);
   };
   return (
     <>
