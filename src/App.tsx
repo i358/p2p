@@ -1,14 +1,17 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./styles/App.scss";
 import "./styles/tailwind.css";
-import { messages, emitMessage, socket } from "./helpers/util";
-const App = () => {
-  const [message, setMessage] = useState<any>(""); 
-  const messageRef = useRef<any>(null);
+import generateRandomColor from "./utils/generateRandomColor.d";
+import { SocketManager } from "./helpers/util";
 
+const App = () => {
+  const MessageManager = new SocketManager.MessageManager();
+  let { socket, messages, emitMessage } = MessageManager.setup();
+  const [message, setMessage] = useState<any>("");
+  const messageRef = useRef<any>(null);
   const checkMessage = (key: any): void => {
     if (key.keyCode === 13 && message.length > 0) {
-      emitMessage({ username: socket.id, content: message });
+      emitMessage({ username: socket.id, content: message, nickColor: generateRandomColor() });
       messageRef.current.value = "";
       setMessage("");
       key.preventDefault();
@@ -25,7 +28,7 @@ const App = () => {
             return (
               <p key={id}>
                 {message.username ? (
-                  <span className="font-[600]">{message.username}: </span>
+                  <span className="font-[700]" style={{color: `#${message.nickColor || "FFF"}`}}>{message.username}: </span>
                 ) : (
                   ""
                 )}

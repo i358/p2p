@@ -1,32 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { socket } from "../utils/socket";
 
-const [isConnected, setConnected] = useState<boolean>(socket.connected);
-const [messages, setMessages] = useState<string[]>([]);
+export namespace SocketManager {
+  export class MessageManager {
+    setup() {
+      const [isConnected, setConnected] = useState<boolean>(socket.connected);
+      const [messages, setMessages] = useState<string[]>([]);
+      interface Message {
+        username: any;
+        content: any;
+        nickColor?: string;
+      }
+      useEffect(() => {
+        const established = (): void => {
+          setConnected(socket.connected);
+          emitMessage({
+            username: socket.id,
+            content: `"${socket.id}" is here!`,
+          });
+          socket.on("message", onMessage);
+        };
+        const disconnected = (): void => {
+          setConnected(socket.connected);
+          addMessage({ username: socket.id, content: "Socket disconnected." });
+        };
+        const onMessage = (message: any): void => {
+          addMessage(message);
+        };
+        socket.on("connect", established);
+        socket.on("disconnect", disconnected);
+      }, []);
 
-useEffect(() => {
-  const established = (): void => {
-    setConnected(socket.connected);
-    emitMessage({ content: `"${socket.id}" is here!` });
-    socket.on("message", onMessage);
-  };
-  const disconnected = (): void => {
-    setConnected(socket.connected);
-    addMessage({ content: "Socket disconnected." });
-  };
-  const onMessage = (message: any): void => {
-    addMessage(message);
-  };
-  socket.on("connect", established);
-  socket.on("disconnect", disconnected);
-}, []);
+      const emitMessage = (m: Message) => {
+        socket.emit("message", m);
+      };
 
-export const emitMessage = (m: any) => {
-  socket.emit("message", m);
-  addMessage(m)
-};
-export const addMessage = (m: any): void => {
-  setMessages((oldMessages: any) => [...oldMessages, m]);
-};
+      const addMessage = (m: Message) => {
+        setMessages((oldMessages: any) => [...oldMessages, m]);
+      };
 
-export { messages, setMessages, isConnected, setConnected, socket };
+      return { socket, messages, isConnected, emitMessage };
+    }
+  }
+}
