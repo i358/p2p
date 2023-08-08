@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { config } from "./config/socket.config";
+import { config } from "./config/socket.config.d";
 
 let { SOCKET_URI } = config;
 
