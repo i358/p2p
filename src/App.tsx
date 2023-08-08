@@ -10,7 +10,7 @@ const App = () => {
   const [message, setMessage] = useState<any>("");
   const messageRef = useRef<any>(null);
   const checkMessage = (key: any): void => {
-    if (key.keyCode === 13 && message.length > 0) {
+    if (key.keyCode === 13 && typeof message === "string" && message.length>0 && message!=="" && !key.shiftKey) {
       emitMessage({ username: socket.id, content: message, nickColor: generateRandomColor() });
       messageRef.current.value = "";
       setMessage("");
@@ -32,7 +32,7 @@ const App = () => {
             return (
               <p key={id}>
                 {message.username ? (
-                  <span className="font-[700]" style={{color: `#${message.nickColor || "FFF"}`}}>{message.username}: </span>
+                  <span className="font-[700]" style={{color: `#${message.nickColor || "FFF"}`}}>{`${message.username}`}: </span>
                 ) : (
                   ""
                 )}
