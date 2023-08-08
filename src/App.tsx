@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import "./styles/App.scss";
 import "./styles/tailwind.css";
 import generateRandomColor from "./utils/generateRandomColor.d";
@@ -14,10 +14,14 @@ const App = () => {
       emitMessage({ username: socket.id, content: message, nickColor: generateRandomColor() });
       messageRef.current.value = "";
       setMessage("");
+      key.target.style.height = `3.1rem`; 
       key.preventDefault();
     }
   };
   const updateTextBox = (e: any): void => {
+    
+    e.target.style.height = `3.1rem`; 
+    e.target.style.height = `${e.target.scrollHeight}px`; 
     setMessage(e.target.value);
   };
   return (
@@ -44,7 +48,7 @@ const App = () => {
               onChange={updateTextBox}
               onKeyDown={checkMessage}
               placeholder="Type somethings..."
-              className="resize-none w-[100%] text-[18px] outline-[0] text-[#d2d2d2] placeholder-[#595d69] max-h-[28vh] p-[.70rem_1rem] rounded-[5px] h-[3.1rem] bg-[#1c212d]"
+              className="resize-none w-[100%] text-[18px] outline-[0] text-[#d2d2d2] placeholder-[#595d69] max-h-[27vh] p-[.70rem_1rem] rounded-[5px] h-[3.1rem] bg-[#1c212d]"
             />
           </div>
         </div>
