@@ -12,8 +12,8 @@ import moment from "moment";
 
 try {
   const httpsServer = createServer({
-    key: readFileSync(path.join(__dirname, "../../secret/socket.key")),
-    cert: readFileSync(path.join(__dirname, "../../secret/socket.cert")),
+    key: readFileSync(path.join(__dirname, "../../secret/key.pem")),
+    cert: readFileSync(path.join(__dirname, "../../secret/cert.pem")),
   });
 
   httpsServer.listen(process.env.PORT);
