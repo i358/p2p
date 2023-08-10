@@ -11,10 +11,7 @@ import { setTimeout } from "node:timers/promises";
 const wait = setTimeout;
 
 dotenv.config({ path: path.join(__dirname, "../../../secret/.env") });
-
-let redisConnectionURI: string = `redis://${
-  process.env.REDIS_PASSWORD ? ":" + process.env.REDIS_PASSWORD : ""
-}@${process.env.REDIS_HOST || "localhost"}:${process.env.REDIS_PORT || 6379}`;
+let redisConnectionURI: string = process.env.REDIS_URI || "redis://localhost:6379"
 
 const initalize = async (): Promise<boolean> => {
   log(colors.dim("{ring} Attempting to connect to Redis cluster"));

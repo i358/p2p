@@ -1,7 +1,7 @@
 import { createClient } from "redis";
 import type { RedisClientType } from "redis";
 
-let redisConnectionURI: string = `'redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}'`;
+let redisConnectionURI: string = process.env.REDIS_URI || "redis://localhost:6379"
 
 export default class redisConnector {
   set(data: { key: any; value: any }): Promise<any> {
