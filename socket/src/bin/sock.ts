@@ -20,7 +20,7 @@ try {
   let port: any = process.env.PORT;
   const io = new Server(httpsServer, {
     cors: {
-      origin: "*", // keep this active on only development.
+      origin: "*",
     },
   });
   //let users: any = [];

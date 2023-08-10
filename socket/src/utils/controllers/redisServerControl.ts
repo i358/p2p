@@ -7,15 +7,11 @@ import * as path from "path";
 import connectionControl from "@utils/controllers/utils/connectionControl";
 import colors from "colors";
 import dotenv from "dotenv";
-import { setTimeout } from "node:timers/promises";
-const wait = setTimeout;
-
 dotenv.config({ path: path.join(__dirname, "../../../secret/.env") });
 let redisConnectionURI: string = process.env.REDIS_URI || "redis://localhost:6379"
 
 const initalize = async (): Promise<boolean> => {
   log(colors.dim("{ring} Attempting to connect to Redis cluster"));
-  await wait(1000);
   let a: string | undefined;
   const redis: RedisClientType = createClient({
     url: redisConnectionURI,
