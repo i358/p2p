@@ -3,26 +3,26 @@
 import { Crypter } from "../lib/crypter";
 import { readFileSync } from "fs";
 import * as path from "path";
+import express from 'express';
 import { createServer } from "https";
 import { Server } from "socket.io";
 import log from "@utils/log";
 import colors from "colors";
+import cors from 'cors';
 import initRedisConnection from "@utils/controllers/utils/databaseConnectionInitalizer";
 import moment from "moment";
 
 try {
+  const app = express()
+  app.use(cors())
   const httpsServer = createServer({
     key: readFileSync(path.join(__dirname, "../../secret/key.pem")),
     cert: readFileSync(path.join(__dirname, "../../secret/cert.pem")),
-  });
+  }, app);
 
   httpsServer.listen(process.env.PORT);
   let port: any = process.env.PORT;
-  const io = new Server(httpsServer, {
-    cors: {
-      origin: "*",
-    },
-  });
+  const io = new Server(httpsServer, { cors: { origin: '*' } });
   //let users: any = [];
   log(
     `{online} Socket initialized and listening at ${colors.bold(
