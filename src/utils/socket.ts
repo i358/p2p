@@ -4,4 +4,4 @@ import { config } from "./config/socket.config.d";
 let { SOCKET_URI } = config;
 
 let URL: any = SOCKET_URI || "https://localhost:3000";
-export const socket = io(URL, {secure:true});
+export const socket = io(URL);

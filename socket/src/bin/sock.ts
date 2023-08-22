@@ -7,36 +7,51 @@ import { createServer } from "https";
 import { Server } from "socket.io";
 import log from "@utils/log";
 import colors from "colors";
-import initRedisConnection from "@utils/controllers/utils/databaseConnectionInitalizer";
+import express from "express";
+import cors from "cors";
+import initDBConnections from "@utils/controllers/utils/databaseConnectionInitalizer";
 
 try {
-  const httpsServer = createServer({
-    key: readFileSync(path.join(__dirname, "../../secret/key.pem")),
-    cert: readFileSync(path.join(__dirname, "../../secret/cert.pem")),
-  });
+  const app = express();
+  const httpsServer = createServer(app);
+  /*
+  {
+    key:readFileSync(path.join(__dirname, "../../secret/key.pem")),
+    cert:readFileSync(path.join(__dirname, "../../secret/cert.pem"))
+  }
+  */
+
+  const allowCrossDomain = (req: any, res: any, next: any) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Methods",
+      "PUT, POST, PATCH, DELETE, OPTIONS"
+    );
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  };
+  app.use(allowCrossDomain);
+  app.use(cors());
 
   let port: any = process.env.PORT || 3000;
-  
-  httpsServer.listen(port);
-  const io = new Server(httpsServer);
-  if (process.env.NODE_ENV === 'development') {
-    io.engine.on('initial_headers', (headers, req) => {
-        headers['Access-Control-Allow-Origin'] = '*';
-        headers['Access-Control-Allow-Credentials'] = true;
-    });
 
-    io.engine.on('headers', (headers, req) => {
-        headers['Access-Control-Allow-Origin'] = '*';
-        headers['Access-Control-Allow-Credentials'] = true;
-    });
-}
+  httpsServer.listen(port);
+  const io = new Server(httpsServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
   //let users: any = [];
   log(
     `{online} Socket initialized and listening at ${colors.bold(
       colors.yellow(port)
     )}, waiting for connections...`
   );
-  initRedisConnection();
+  //initDBConnections();
 
   io.on("connection", (socket) => {
     log(`A new connection with "${socket.id}" ID.`, colors.dim);
