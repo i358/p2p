@@ -5821,7 +5821,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module) => {
 
 "use strict";
-eval("module.exports = JSON.parse('{\"isDevelopment\":false,\"SOCKET\":{\"URI\":\"https://peer2p.online/\",\"PATH\":\"/handshake/websocket/v1\"},\"API\":{\"URI\":\"https://peer2p.online/api\",\"VERSION\":1,\"ENDPOINTS\":{\"POST\":{\"ACCOUNT\":{\"SIGN\":\"/session/sign\",\"NEW\":\"/session/new\"},\"MESSAGES\":{\"RETRIEVE\":\"/messages\",\"SEND\":\"/messages/send\"},\"USER\":{\"RETRIEVE\":\"/users\"},\"USERS\":{\"RETRIEVE\":\"/users/all\"}},\"GET\":{},\"PUT\":{},\"DELETE\":{}}}}');\n\n//# sourceURL=webpack://p2p/./src/config/app.json?");
+eval("module.exports = JSON.parse('{\"isDevelopment\":false,\"SOCKET\":{\"URI\":\"https://www.peer2p.online/\",\"PATH\":\"/handshake/websocket/v1\"},\"API\":{\"URI\":\"https://www.peer2p.online/api\",\"VERSION\":1,\"ENDPOINTS\":{\"POST\":{\"ACCOUNT\":{\"SIGN\":\"/session/sign\",\"NEW\":\"/session/new\"},\"MESSAGES\":{\"RETRIEVE\":\"/messages\",\"SEND\":\"/messages/send\"},\"USER\":{\"RETRIEVE\":\"/users\"},\"USERS\":{\"RETRIEVE\":\"/users/all\"}},\"GET\":{},\"PUT\":{},\"DELETE\":{}}}}');\n\n//# sourceURL=webpack://p2p/./src/config/app.json?");
 
 /***/ })
 
@@ -5943,7 +5943,7 @@ eval("module.exports = JSON.parse('{\"isDevelopment\":false,\"SOCKET\":{\"URI\":
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9de98cdd1cbba944fe2a")
+/******/ 		__webpack_require__.h = () => ("ef7f4f8d5997243c565c")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
