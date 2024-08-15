@@ -1,0 +1,17 @@
+@keyframes slideaway {
+    from {
+      display: block;
+    }
+    to {
+      opacity:0;
+    }
+  }
+  @keyframes slideaway2 {
+    from {
+      opacity:0;
+    }
+    to {
+      opacity:1;
+    }
+  }
+  

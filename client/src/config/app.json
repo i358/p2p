@@ -1,0 +1,38 @@
+{
+    "isDevelopment":false,
+    "SOCKET":{
+        "URI":"https://peer2p.online/",
+        "PATH":"/handshake/websocket/v1"
+    },
+    "API":{
+        "URI":"https://peer2p.online/api",
+        "VERSION":1,
+        "ENDPOINTS": {
+            "POST":{
+                "ACCOUNT":{
+                    "SIGN":"/session/sign",
+                    "NEW":"/session/new"
+                },
+                "MESSAGES":{
+                    "RETRIEVE":"/messages",
+                    "SEND":"/messages/send"
+                },
+                "USER":{
+                    "RETRIEVE":"/users"
+                },
+                "USERS":{
+                    "RETRIEVE":"/users/all"
+                }
+            },
+            "GET":{
+
+            },
+            "PUT":{
+
+            },
+            "DELETE":{
+
+            }
+        }
+    }
+}

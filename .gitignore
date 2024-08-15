@@ -1,0 +1,8 @@
+node_modules/
+yarn.lock
+.env
+db/dump
+db/storage
+.exe
+desktop/
+mobile/

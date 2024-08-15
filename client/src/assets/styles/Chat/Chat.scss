@@ -1,0 +1,37 @@
+@keyframes slideaway {
+  from {
+    display: block;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes slideaway2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    transform: translateX();
+    opacity: 1;
+  }
+}
+@keyframes slideawayTyping {
+  from {
+    opacity: 0;
+  }
+  to {
+    transform: translateZ(0.5rem);
+    opacity: 1;
+  }
+}
+@keyframes slideawayTyping2 {
+  from {
+    display:block;
+    opacity:1;
+  }
+  to {
+    transform: translateZ(0.5rem);
+    display:none;
+    opacity:0;
+  }
+}

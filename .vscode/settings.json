@@ -1,0 +1,40 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "local postgres",
+            "database": "storage",
+            "username": "postgres"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "local mysql",
+            "database": "101m",
+            "username": "root",
+            "password": ""
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "p2p postgres",
+            "connectString": "postgresql://i358:C6kTOzDBi8HTRKhIIJDlhpBVDTpcC3V7@dpg-cqraei56l47c73ebdceg-a.oregon-postgres.render.com/storage_5q20"
+        }
+    ]
+}

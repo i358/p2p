@@ -1,0 +1,41 @@
+@media (max-width: 761px) {
+  #inputBoxContainer {
+    width: 95vw;
+  }
+   #errorText{
+   width:95vw
+   }
+}
+@media (min-width: 761px) {
+  #inputBoxContainer {
+    width: 45vw;
+  }
+    #errorText{
+   width:45vw
+   }
+}
+
+
+.inputBg{
+  background:rgba(27, 27, 48, 85%) !important;
+}
+
+#subButton {
+  background-image:linear-gradient(to left, #2e11de, #de1111);
+  transition: all 0.1s;
+  &:disabled {
+    transition: all 0.2s;
+    background-image: linear-gradient(to left, #2e11deb3, #de1111b3) !important; 
+    color: #696d98bd !important;
+  }
+  &:hover { 
+    transition: all 0.1s;
+    color: #fefeffbd;
+    background-image: linear-gradient(to left, hsla(248, 86%, 47%, 0.804), hsla(0, 86%, 47%, 0.804));
+  }
+  &:active {
+    transition: all 0.2s;
+    background-image: linear-gradient(to left, hsla(248, 86%, 47%, 0.459), hsla(0, 86%, 47%, 0.459));
+    color: #7477a3bd;
+  }
+}
