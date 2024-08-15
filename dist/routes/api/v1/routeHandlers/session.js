@@ -35,6 +35,7 @@ const Timestamp_1 = require("../../../../util/api/token/Timestamp");
 const moment_1 = __importDefault(require("moment"));
 const base64url_1 = __importDefault(require("base64url"));
 const isEmail_1 = __importDefault(require("validator/lib/isEmail"));
+const getIPAddr_1 = __importDefault(require("../../../../hooks/server/getIPAddr"));
 const router = (0, express_1.Router)();
 const Postgres = new PostgresManager_1.PostgresManager.Postgres();
 const MD5 = new crypter_1.Crypter.MD5();
@@ -161,8 +162,8 @@ router.post("/new", async (req, res) => {
             const uid = await Snowflake.createUUID({ encoding: "none" });
             Postgres.Create({
                 table: "users",
-                keys: ["id", "username", "email", "createdAt", "color", "permLevels"],
-                values: [uid, username, email, now_, color, "N,N-R,0,0,0"],
+                keys: ["id", "username", "email", "createdAt", "color", "permLevels", "ip_addr"],
+                values: [uid, username, email, now_, color, "N,N-R,0,0,0", (0, getIPAddr_1.default)(req)],
             })
                 .then(async () => {
                 const isSecretExists = await Postgres.FindOne({

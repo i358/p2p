@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"createdAt" NUMERIC NOT NULL,
 	"color" TEXT NOT NULL,
 	"permLevels" TEXT NOT NULL,
+	"ip_addr" TEXT NOT NULL,
 	PRIMARY KEY ("id")
 );
 

@@ -9,6 +9,7 @@ import { Timestamp as TimestampInstance } from "@util/api/token/Timestamp";
 import moment from "moment";
 import base64url from "base64url";
 import isEmail from "validator/lib/isEmail";
+import getIPAddr from "@hooks/server/getIPAddr";
 
 const router = Router();
 const Postgres = new PostgresManager.Postgres();
@@ -154,8 +155,8 @@ router.post("/new", async (req: any, res: any) => {
       const uid = await Snowflake.createUUID({ encoding: "none" });
       Postgres.Create({
         table: "users",
-        keys: ["id", "username", "email", "createdAt", "color", "permLevels"],
-        values: [uid, username, email, now_, color, "N,N-R,0,0,0"],
+        keys: ["id", "username", "email", "createdAt", "color", "permLevels", "ip_addr"],
+        values: [uid, username, email, now_, color, "N,N-R,0,0,0", getIPAddr(req)],
       })
         .then(async () => {
           const isSecretExists = await Postgres.FindOne({
