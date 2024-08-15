@@ -48,7 +48,7 @@ let { SITE_DOMAIN } = process.env;
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 const corsOptions = {
-    origin: 'https://www.peer2p.online', // İstemci domaini
+    origin: "*",
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true

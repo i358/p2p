@@ -22,7 +22,7 @@ const app = express();
 const httpServer = createServer(app);
 
 const corsOptions = {
-  origin: 'https://www.peer2p.online', // İstemci domaini
+  origin: "*", 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true 

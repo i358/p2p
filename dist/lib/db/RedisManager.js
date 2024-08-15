@@ -35,7 +35,7 @@ class RedisManager {
             let res = await client.get(key);
             await client.quit();
             if (!exists)
-                reject(false);
+                resolve(false);
             if (exists)
                 resolve(res);
         });
