@@ -8,7 +8,7 @@ import colors from "colors";
 import xml from "xml";
 
 export default function (req: any, res: any, next: any) {
-  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  let ip = req.headers['x-forwarded-for'].split(",")[0] || req.connection.remoteAddress;
   let table = new AsciiTable();
   table
     .setHeading("Ref", "Content")

@@ -9,7 +9,7 @@ const ascii_table_1 = __importDefault(require("ascii-table"));
 const log_1 = __importDefault(require("../../util/log"));
 const colors_1 = __importDefault(require("colors"));
 function default_1(req, res, next) {
-    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    let ip = req.headers['x-forwarded-for'].split(",")[0] || req.connection.remoteAddress;
     let table = new ascii_table_1.default();
     table
         .setHeading("Ref", "Content")
