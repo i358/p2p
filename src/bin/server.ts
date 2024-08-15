@@ -8,6 +8,7 @@ import Logger from "@middleware/server/Logger";
 import { Client as PostgresClient } from "@hooks/db/postgres";
 import { SocketManager } from "@lib/ws/SocketManager";
 import * as path from "path";
+import cors from "cors"
 import APIV1Router from "@routes/api/v1/api";
 import SocketEventLoader from "@events/ws/eventLoader";
 import redisHealthCheck from "@util/db/redisHealthCheck";
@@ -22,6 +23,9 @@ const httpServer = createServer(app);
 
 app.use(express.json());
 app.use(Logger);
+process.env.MODE === "prod" && app.use(cors({
+  origin:SITE_DOMAIN
+}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(express.static(path.join(__dirname, "../../public")));

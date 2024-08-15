@@ -36,6 +36,7 @@ const Logger_1 = __importDefault(require("../middleware/server/Logger"));
 const postgres_1 = require("../hooks/db/postgres");
 const SocketManager_1 = require("../lib/ws/SocketManager");
 const path = __importStar(require("path"));
+const cors_1 = __importDefault(require("cors"));
 const api_1 = __importDefault(require("../routes/api/v1/api"));
 const eventLoader_1 = __importDefault(require("../events/ws/eventLoader"));
 const redisHealthCheck_1 = __importDefault(require("../util/db/redisHealthCheck"));
@@ -48,6 +49,9 @@ const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 app.use(express_1.default.json());
 app.use(Logger_1.default);
+process.env.MODE === "prod" && app.use((0, cors_1.default)({
+    origin: SITE_DOMAIN
+}));
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(path.join(__dirname, "../../client/dist")));
 app.use(express_1.default.static(path.join(__dirname, "../../public")));
