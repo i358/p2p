@@ -1,15 +1,10 @@
 import express from "express";
-import moment from "moment";
 import log from "@util/log";
-import session from "express-session";
 import dotenv from "dotenv";
 dotenv.config();
 import { createServer } from "http";
-import cors from "cors";
 import colors from "colors";
-import xml from "xml";
 import Logger from "@middleware/server/Logger";
-import NotFoundMiddleware from "@middleware/server/404";
 import { Client as PostgresClient } from "@hooks/db/postgres";
 import { SocketManager } from "@lib/ws/SocketManager";
 import * as path from "path";
@@ -25,7 +20,6 @@ let { SITE_DOMAIN } = process.env;
 const app = express();
 const httpServer = createServer(app);
 
-app.use(cors());
 app.use(express.json());
 app.use(Logger);
 app.use(express.urlencoded({ extended: false }));
@@ -35,19 +29,7 @@ app.use("/api/v1", APIV1Router);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
-const allowCrossDomain = (req: any, res: any, next: any) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, PATCH, DELETE, OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-};
-app.use(allowCrossDomain);
+
 
 console.clear();
 if (process.env.MODE === "prod") {
@@ -109,4 +91,8 @@ PostgresClient().then(() => {
       );
     }
   );
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

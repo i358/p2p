@@ -31,7 +31,6 @@ const log_1 = __importDefault(require("../util/log"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const http_1 = require("http");
-const cors_1 = __importDefault(require("cors"));
 const colors_1 = __importDefault(require("colors"));
 const Logger_1 = __importDefault(require("../middleware/server/Logger"));
 const postgres_1 = require("../hooks/db/postgres");
@@ -47,7 +46,6 @@ let io = Socket.io;
 let { SITE_DOMAIN } = process.env;
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
-app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(Logger_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
@@ -57,13 +55,6 @@ app.use("/api/v1", api_1.default);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
-const allowCrossDomain = (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-};
-app.use(allowCrossDomain);
 console.clear();
 if (process.env.MODE === "prod") {
     (0, axios_1.default)({
@@ -104,5 +95,8 @@ if (process.env.MODE === "prod") {
         (0, log_1.default)(`${colors_1.default.yellow("* Socket Pathway: ") +
             colors_1.default.blue(`${process.env.SOCKET_PATH}`)}`, colors_1.default.bold);
     });
+});
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 //# sourceMappingURL=server.js.map
