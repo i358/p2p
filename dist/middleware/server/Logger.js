@@ -9,12 +9,14 @@ const ascii_table_1 = __importDefault(require("ascii-table"));
 const log_1 = __importDefault(require("../../util/log"));
 const colors_1 = __importDefault(require("colors"));
 function default_1(req, res, next) {
+    let ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() ||
+        req.socket.remoteAddress;
     let table = new ascii_table_1.default();
     table
         .setHeading("Ref", "Content")
         .addRow("Method", req.method)
         .addRow("Path", req.path)
-        .addRow("Address", req.ip)
+        .addRow("Address", ip)
         .addRow("Status", `${res.statusCode}`)
         .addRow("Params", JSON.stringify(req.query));
     (0, log_1.default)("\n" +

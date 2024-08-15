@@ -6,12 +6,14 @@ import colors from "colors";
 import xml from "xml";
 
 export default function (req: any, res: any, next: any) {
+  let ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || 
+  req.socket.remoteAddress
   let table = new AsciiTable();
   table
     .setHeading("Ref", "Content")
     .addRow("Method", req.method)
     .addRow("Path", req.path)
-    .addRow("Address", req.ip)
+    .addRow("Address", ip)
     .addRow("Status", `${res.statusCode}`)
     .addRow("Params", JSON.stringify(req.query))
   log(
