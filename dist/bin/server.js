@@ -44,16 +44,17 @@ const axios_1 = __importDefault(require("axios"));
 //import "../tests/token";
 const Socket = new SocketManager_1.SocketManager();
 let io = Socket.io;
+let { SITE_DOMAIN } = process.env;
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(Logger_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
-app.use(express_1.default.static(path.join(__dirname, "../../client/build")));
+app.use(express_1.default.static(path.join(__dirname, "../../client/dist")));
 app.use("/api/v1", api_1.default);
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
 const allowCrossDomain = (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -66,14 +67,14 @@ console.clear();
 if (process.env.MODE === "prod") {
     (0, axios_1.default)({
         method: "GET",
-        url: "https://api-p2p.onrender.com/",
+        url: SITE_DOMAIN,
     }).then(() => {
         console.log("Pinged!");
     });
     setInterval(() => {
         (0, axios_1.default)({
             method: "GET",
-            url: "https://api-p2p.onrender.com/",
+            url: SITE_DOMAIN,
         }).then(() => {
             console.log("Pinged!");
         });

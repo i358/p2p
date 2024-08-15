@@ -1,4 +1,10 @@
 {
+  "exclude": [
+    "node_modules",
+    "desktop",
+    "mobile",
+    "client",
+],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
