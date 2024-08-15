@@ -36,6 +36,7 @@ const Logger_1 = __importDefault(require("../middleware/server/Logger"));
 const postgres_1 = require("../hooks/db/postgres");
 const SocketManager_1 = require("../lib/ws/SocketManager");
 const path = __importStar(require("path"));
+const cors_1 = __importDefault(require("cors"));
 const api_1 = __importDefault(require("../routes/api/v1/api"));
 const eventLoader_1 = __importDefault(require("../events/ws/eventLoader"));
 const redisHealthCheck_1 = __importDefault(require("../util/db/redisHealthCheck"));
@@ -46,6 +47,14 @@ let io = Socket.io;
 let { SITE_DOMAIN } = process.env;
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
+const corsOptions = {
+    origin: 'https://www.peer2p.online', // İstemci domaini
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+app.use((0, cors_1.default)(corsOptions));
+app.options('*', (0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(Logger_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
