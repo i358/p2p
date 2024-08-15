@@ -47,9 +47,18 @@ let io = Socket.io;
 let { SITE_DOMAIN } = process.env;
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
-app.use((0, cors_1.default)({
-    origin: SITE_DOMAIN
-}));
+const whitelist = [SITE_DOMAIN]; // assuming front-end application is running on localhost port 3000
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(Logger_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
