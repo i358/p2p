@@ -1,0 +1,2 @@
+bitmedi.
+bitirmeyi de düsünmüyom.
