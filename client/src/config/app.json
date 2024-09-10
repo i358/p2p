@@ -4,7 +4,7 @@
         "URI":"https://www.peer2p.online/",
         "PATH":"/handshake/websocket/v1"
     },
-    "API":{
+    "API":{ 
         "URI":"https://www.peer2p.online/api",
         "VERSION":1,
         "ENDPOINTS": {

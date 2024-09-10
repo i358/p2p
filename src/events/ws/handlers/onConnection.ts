@@ -1,6 +1,5 @@
 import log from "@util/log";
 import colors from "colors";
-import moment from "moment";
 import { RedisManager } from "@lib/db/RedisManager";
 const redis = new RedisManager()
 const { Exists, Set, Get } = redis;
@@ -10,7 +9,6 @@ export default async function (io: any, socket: any) {
   delete socket.user["email"]
   delete socket.user["permLevels"]
   delete socket.user["pgid"]
-
   let exists = await Exists("online")
   let uList__ = []
   uList__.push(socket.user.id)

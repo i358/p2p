@@ -2,7 +2,7 @@
 //https://i.imgur.com/zL4l6XB.png
 export default function Message(Props:any){
   const { index, message, scrollContent } = Props.Data;
-  //#56515f6e
+ //#56515f6e
   return( message.isSkeleton ? (
     <div key={index} className="grid items-center justify-center grid-cols-[auto,1fr] p-[5px_25px] pr-[20px] w-[100%] gap-[12px]" style={{paddingTop:"18px" }}> 
         <div id="image" style={{alignSelf:"start"}}>

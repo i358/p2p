@@ -1,9 +1,6 @@
 import log from "@util/log";
-import moment from "moment";
 import colors from "colors";
-import { Crypter } from "@lib/security/crypter";
 import pgHealthCheck from "@util/db/pgHealthCheck";
-import pg from "pg";
 import { PostgresManager } from "@lib/db/PostgresManager";
 
 export function Client(): Promise<any> {
@@ -20,7 +17,7 @@ export function Client(): Promise<any> {
         pgHealthCheck()
           .then(() => {
             log(
-              `{online} ${colors.bgGreen("OK! Cluster is working properly.")}`,
+              `{online} ${colors.bgGreen("OK! Cluster is working properly.")}`, 
               colors.bold
             );
             resolve(client);
@@ -33,7 +30,7 @@ export function Client(): Promise<any> {
             err,
           colors.red
         );
-        reject(false);
+        resolve(false);
       });
   });
 }

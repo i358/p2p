@@ -6,3 +6,4 @@ db/storage
 .exe
 desktop/
 mobile/
+.vscode/

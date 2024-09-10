@@ -7,6 +7,7 @@ import "./assets/styles/tailwind.css";
 
 export default function App() {
 useEffect(() => {
+  
   console.log(
     `%c
     Dur yolcu! Bilmeden gelip bastığın,

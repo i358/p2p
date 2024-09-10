@@ -6,7 +6,7 @@ const { Color, Icon, Text, Navigate } = Props;
 var navigate = useNavigate();
 const handleClick = (n:any) => {
     if(Props.DisconnectSocket){
-        Props.Socket.disconnect();
+        Props.Socket?.disconnect();
     }
    navigate(n)
 }

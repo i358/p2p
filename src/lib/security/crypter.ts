@@ -4,6 +4,7 @@ import base64url from "base64url";
 
 export namespace Crypter {
   export class AES256CBC {
+    
     encrypt(payload: any, secret?: { iv: any; key: any }): Promise<Object> {
       return new Promise<Object>((resolve, reject) => {
         const initVector: Buffer = secret?.iv || crypto.randomBytes(16);
@@ -30,6 +31,14 @@ export namespace Crypter {
         }
       });
     }
+    /**
+     *
+     *
+     * @param {*} encryptedPayload
+     * @param {({ iv: Buffer; key: Buffer } | any)} secret
+     * @return {*}  {Promise<Object>}
+     * @memberof AES256CBC
+     */
     decrypt(
       encryptedPayload: any,
       secret: { iv: Buffer; key: Buffer } | any

@@ -363,7 +363,7 @@ export default function Chat() {
       <div key={key} className="hover:cursor-pointer flex rounded-[5px] hover:bg-[#50506d5e] flex-row items-center w-[100%] m-[0_5px] mb-[5px] pl-[5px] pb-[5px]">
         <div id="image" style={{ marginTop: 6, marginRight: 10, flexShrink: 0 }}>
           <img
-            src="https://media.printables.com/media/prints/612047/images/4859360_c751a68b-7241-405a-892a-d0af4f0260ec_282dc7ca-4282-4ec9-a6fa-db559817051b/thumbs/cover/800x800/png/bildschirmfoto-2023-10-06-um-122709.webp"
+            src="https://peer2p.online/default.png"
             className="w-[2.5rem] h-[2.5rem] rounded-[40px]"
             alt={user.id}
           />

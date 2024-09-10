@@ -1,6 +1,5 @@
 import log from "@util/log";
 import colors from "colors";
-import moment from "moment";
 import { RedisManager } from "@lib/db/RedisManager";
 const redis = new RedisManager()
 const { Exists, Get, Set } = redis;

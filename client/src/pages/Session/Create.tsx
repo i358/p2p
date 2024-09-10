@@ -143,22 +143,7 @@ export default function Create() {
               emailRef.current.style = "border:2.5px #d12f2fc2 solid;color:#e05959;";
               passwordRef.current.style = "border:2.5px #d12f2fc2 solid;color:#e05959;";
             }else{
-              api({ url: POST_ENDPOINTS.ACCOUNT.SIGN, data: { email, password } }).then(
-                ({ data }: any) => {
-                  if (data) {
-                    if (data.error) {
-                     navigate("/session/sign")
-                    }
-                    if (data.token) {
-                      setCookies("AUTH_TOKEN", data.token, {
-                        secure: true,
-                        path: "/",
-                      });
-                      navigate("/app");
-                    }
-                  }
-                }
-              );
+           navigate("/session/sign")
             }
            
           }
