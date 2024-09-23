@@ -60,6 +60,8 @@ if (process.env.MODE === "prod") {
         });
     }, 60 * 1000 * 10);
 }
+
+
 PostgresClient().then(() => {
     redisHealthCheck();
     log("{ring} Initializing API and services..", colors.dim);

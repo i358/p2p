@@ -95,7 +95,7 @@ export default function Chat() {
       messageRef.current.value = "";
       /* fileInputRef.current.value = "";*/
       setMessage("");
-      emitMessage(
+      emitMessage( 
         {
           content: message.trim(),
         },
@@ -114,7 +114,7 @@ export default function Chat() {
         if (message) {
           meTyping_(true);
           const timeoutId = setTimeout(() => {
-            meTyping_(false);
+            meTyping_(false); 
             setTimeoutDuration(1500);
           }, timeoutDuration);
           setTimeoutDuration((prevDuration) => prevDuration + 10);

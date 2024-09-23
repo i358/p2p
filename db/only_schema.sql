@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Sunucu:                       127.0.0.1
--- Sunucu sürümü:                PostgreSQL 16.3, compiled by Visual C++ build 1939, 64-bit
+-- Sunucu sürümü:                PostgreSQL 16.4, compiled by Visual C++ build 1940, 64-bit
 -- Sunucu İşletim Sistemi:       
--- HeidiSQL Sürüm:               12.6.0.6765
+-- HeidiSQL Sürüm:               12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,9 +12,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Veri çıktısı seçilmemişti
 
 -- tablo yapısı dökülüyor public.banned
 CREATE TABLE IF NOT EXISTS "banned" (

@@ -32,7 +32,7 @@ export default function Create() {
   );
   const [isGeneratorDisabled, setIsGeneratorDisabled] = useState(false);
 
-
+ 
   let oldEmail: any = true;
   let oldUsername: any = true;
   let oldPassword: any = true;
