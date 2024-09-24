@@ -62,7 +62,7 @@ router.post("/sign", async (req, res) => {
                     values: [User.id],
                 });
                 password = await MD5.create(password, { encoding: "none" });
-                let data = await MD5.create({ username: User.username, email }, { encoding: "base64url" });
+                let data = await MD5.create({ id: User.id, username: User.username, email }, { encoding: "base64url" });
                 const userValidator = await HMAC.validate(UserSecret.secret, password, data, { encoding: "base64url" });
                 const nextAuth = async () => {
                     let [act] = User.permLevels.split(",");
@@ -193,7 +193,7 @@ router.post("/new", async (req, res) => {
                     });
                 }
                 const pwCr = await MD5.create(password, { encoding: "none" });
-                const metadata = await MD5.create({ username, email }, { encoding: "base64url" });
+                const metadata = await MD5.create({ uid, username, email }, { encoding: "base64url" });
                 let HMACGeneratedKey = await HMAC.create(metadata, pwCr, {
                     encoding: "base64url",
                 });

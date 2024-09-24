@@ -25,7 +25,7 @@ function Client() {
             .catch((err) => {
             (0, log_1.default)("{error} An error occurred while initializing PostgreSQL Client: " +
                 err, colors_1.default.red);
-            reject(false);
+            resolve(false);
         });
     });
 }

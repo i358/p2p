@@ -55,6 +55,14 @@ var Crypter;
                 }
             });
         }
+        /**
+         *
+         *
+         * @param {*} encryptedPayload
+         * @param {({ iv: Buffer; key: Buffer } | any)} secret
+         * @return {*}  {Promise<Object>}
+         * @memberof AES256CBC
+         */
         decrypt(encryptedPayload, secret) {
             return new Promise((resolve, reject) => {
                 try {

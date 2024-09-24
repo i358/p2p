@@ -1,5 +1,5 @@
 {
-    "isDevelopment":false,
+    "isDevelopment":true,
     "SOCKET":{
         "URI":"https://www.peer2p.online/",
         "PATH":"/handshake/websocket/v1"

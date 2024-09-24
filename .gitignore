@@ -7,3 +7,4 @@ db/storage
 desktop/
 mobile/
 .vscode/
+.idea/

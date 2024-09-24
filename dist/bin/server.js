@@ -41,7 +41,6 @@ const api_1 = __importDefault(require("../routes/api/v1/api"));
 const eventLoader_1 = __importDefault(require("../events/ws/eventLoader"));
 const redisHealthCheck_1 = __importDefault(require("../util/db/redisHealthCheck"));
 const axios_1 = __importDefault(require("axios"));
-//import "../tests/token";
 const Socket = new SocketManager_1.SocketManager();
 let io = Socket.io;
 let { SITE_DOMAIN } = process.env;
@@ -62,6 +61,9 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(path.join(__dirname, "../../client/dist")));
 app.use(express_1.default.static(path.join(__dirname, "../../public")));
 app.use("/api/v1", api_1.default);
+app.use("/.well-known/discord/", (req, res) => {
+    res.send("dh=2aa2e481c8eea587e6eaefb3a6acc8e3ba371004");
+});
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
