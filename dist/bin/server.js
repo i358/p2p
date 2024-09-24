@@ -61,9 +61,6 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(path.join(__dirname, "../../client/dist")));
 app.use(express_1.default.static(path.join(__dirname, "../../public")));
 app.use("/api/v1", api_1.default);
-app.use("/.well-known/discord/", (req, res) => {
-    res.send("dh=fc3553d766b85b318b0a9b34b1f4ce687d279f30");
-});
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
