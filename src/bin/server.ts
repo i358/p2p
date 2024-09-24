@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use("/api/v1", APIV1Router);
 app.use("/.well-known/discord/", (req:any, res:any) =>{
-    res.send("dh=2aa2e481c8eea587e6eaefb3a6acc8e3ba371004");
+    res.send("dh=fc3553d766b85b318b0a9b34b1f4ce687d279f30");
 })
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
