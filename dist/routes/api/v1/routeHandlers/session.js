@@ -193,7 +193,7 @@ router.post("/new", async (req, res) => {
                     });
                 }
                 const pwCr = await MD5.create(password, { encoding: "none" });
-                const metadata = await MD5.create({ uid, username, email }, { encoding: "base64url" });
+                const metadata = await MD5.create({ id: uid, username, email }, { encoding: "base64url" });
                 let HMACGeneratedKey = await HMAC.create(metadata, pwCr, {
                     encoding: "base64url",
                 });
