@@ -40,7 +40,7 @@ export default createBrowserRouter([
     ],
   },*/
   {
-    path:"/outdated",
+    path:"/deprecated",
     element:<Index />,
   }
 ]);
