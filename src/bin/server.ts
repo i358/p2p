@@ -64,8 +64,7 @@ if (process.env.MODE === "prod") {
     }, 60 * 1000 * 10);
 }
 
-
-PostgresClient().then(() => {
+/*PostgresClient().then(() => {
     redisHealthCheck();
     log("{ring} Initializing API and services..", colors.dim);
     Socket.Connect(
@@ -110,6 +109,10 @@ PostgresClient().then(() => {
         }
     );
 });
+*/
+httpServer.listen(80, ()=>{
+    console.log("ok")
+})
 
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);

@@ -27,18 +27,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const log_1 = __importDefault(require("../util/log"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const http_1 = require("http");
-const colors_1 = __importDefault(require("colors"));
 const Logger_1 = __importDefault(require("../middleware/server/Logger"));
-const postgres_1 = require("../hooks/db/postgres");
 const SocketManager_1 = require("../lib/ws/SocketManager");
 const path = __importStar(require("path"));
 const cors_1 = __importDefault(require("cors"));
-const eventLoader_1 = __importDefault(require("../events/ws/eventLoader"));
-const redisHealthCheck_1 = __importDefault(require("../util/db/redisHealthCheck"));
 const axios_1 = __importDefault(require("axios"));
 const Socket = new SocketManager_1.SocketManager();
 let io = Socket.io;
@@ -80,29 +75,54 @@ if (process.env.MODE === "prod") {
         });
     }, 60 * 1000 * 10);
 }
-(0, postgres_1.Client)().then(() => {
-    (0, redisHealthCheck_1.default)();
-    (0, log_1.default)("{ring} Initializing API and services..", colors_1.default.dim);
-    Socket.Connect(httpServer, {
-        path: process.env.SOCKET_PATH,
-        cookie: {
-            name: "handshake-fingerprint",
-            httpOnly: true,
-            sameSite: "strict",
-            maxAge: 30 * 24 * 60 * 60 * 100,
+/*PostgresClient().then(() => {
+    redisHealthCheck();
+    log("{ring} Initializing API and services..", colors.dim);
+    Socket.Connect(
+        httpServer,
+        {
+            path: process.env.SOCKET_PATH,
+            cookie: {
+                name: "handshake-fingerprint",
+                httpOnly: true,
+                sameSite: "strict",
+                maxAge: 30 * 24 * 60 * 60 * 100,
+            },
+            cors: {
+                origin: "*",
+                methods: ["GET", "POST"],
+            },
+
         },
-        cors: {
-            origin: "*",
-            methods: ["GET", "POST"],
-        },
-    }, Number(process.env.PORT), (server) => {
-        io = Socket.io;
-        (0, eventLoader_1.default)(io);
-        (0, log_1.default)(`{online} API and Socket listening on ${colors_1.default.blue(`http://${server.address().address}:${server.address().port}/`)}`, colors_1.default.bold);
-        (0, log_1.default)(`${colors_1.default.yellow("* To check the API status: ") + colors_1.default.blue("GET /")}`, colors_1.default.bold);
-        (0, log_1.default)(`${colors_1.default.yellow("* Socket Pathway: ") +
-            colors_1.default.blue(`${process.env.SOCKET_PATH}`)}`, colors_1.default.bold);
-    });
+        Number(process.env.PORT),
+        (server: any) => {
+            io = Socket.io;
+            SocketEventLoader(io);
+            log(
+                `{online} API and Socket listening on ${colors.blue(
+                    `http://${server.address().address}:${server.address().port}/`
+                )}`,
+                colors.bold
+            );
+            log(
+                `${
+                    colors.yellow("* To check the API status: ") + colors.blue("GET /")
+                }`,
+                colors.bold
+            );
+            log(
+                `${
+                    colors.yellow("* Socket Pathway: ") +
+                    colors.blue(`${process.env.SOCKET_PATH}`)
+                }`,
+                colors.bold
+            );
+        }
+    );
+});
+*/
+httpServer.listen(80, () => {
+    console.log("ok");
 });
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
