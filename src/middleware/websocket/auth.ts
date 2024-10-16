@@ -1,6 +1,7 @@
 import userCheck from "@hooks/api/userCheck";
 
 export default function (socket: any, next: Function) {
+  next(new Error("This project is deprecated. Please don't use it anymore."))
   const auth = socket.handshake.auth;
 
   if (!auth.token) next(new Error("Unauthorized"));

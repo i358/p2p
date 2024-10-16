@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
-const Timestamp_1 = require("@util/api/token/Timestamp");
-const bearerTokenValidator_1 = __importDefault(require("validators/api/bearerTokenValidator"));
+const Timestamp_1 = require("../../util/api/token/Timestamp");
+const bearerTokenValidator_1 = __importDefault(require("../../validators/api/bearerTokenValidator"));
 let b64 = Buffer.from;
 function default_1(token) {
     const Timestamp = new Timestamp_1.Timestamp();

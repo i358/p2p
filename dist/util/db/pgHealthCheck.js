@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
-const crypter_1 = require("@lib/security/crypter");
+const crypter_1 = require("../../lib/security/crypter");
 const moment_1 = __importDefault(require("moment"));
-const log_1 = __importDefault(require("@util/log"));
-const PostgresManager_1 = require("@lib/db/PostgresManager");
+const log_1 = __importDefault(require("../log"));
+const PostgresManager_1 = require("../../lib/db/PostgresManager");
 const colors_1 = __importDefault(require("colors"));
 function default_1() {
     const Postgres = new PostgresManager_1.PostgresManager.Postgres();

@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
-const PostgresManager_1 = require("@lib/db/PostgresManager");
-const bearerTokenHandler_1 = __importDefault(require("handlers/api/bearerTokenHandler"));
+const PostgresManager_1 = require("../../lib/db/PostgresManager");
+const bearerTokenHandler_1 = __importDefault(require("../../handlers/api/bearerTokenHandler"));
 function default_1(token) {
     return new Promise((resolve, reject) => {
         const Postgres = new PostgresManager_1.PostgresManager.Postgres();

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Snowflake_1 = require("@util/api/token/Snowflake");
+const Snowflake_1 = require("../util/api/token/Snowflake");
 const moment_1 = __importDefault(require("moment"));
 require("./timestamp");
 (async () => {

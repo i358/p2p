@@ -27,11 +27,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const PostgresManager_1 = require("@lib/db/PostgresManager");
-const SocketManager_1 = require("@lib/ws/SocketManager");
-const Snowflake_1 = require("@util/api/token/Snowflake");
-const userCheck_1 = __importDefault(require("@hooks/api/userCheck"));
-const auth_1 = __importDefault(require("@middleware/api/auth"));
+const PostgresManager_1 = require("../../../../lib/db/PostgresManager");
+const SocketManager_1 = require("../../../../lib/ws/SocketManager");
+const Snowflake_1 = require("../../../../util/api/token/Snowflake");
+const userCheck_1 = __importDefault(require("../../../../hooks/api/userCheck"));
+const auth_1 = __importDefault(require("../../../../middleware/api/auth"));
 const multer_1 = __importDefault(require("multer"));
 const path = __importStar(require("path"));
 const moment_1 = __importDefault(require("moment"));

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Timestamp_1 = require("@util/api/token/Timestamp");
+const Timestamp_1 = require("../util/api/token/Timestamp");
 const moment_1 = __importDefault(require("moment"));
 (async () => {
     const Timestamp = new Timestamp_1.Timestamp();

@@ -1,6 +1,10 @@
+import { useEffect } from "react";
+
 export default function App(){
 
-    
+    const redirect = (url:any) => {
+            window.open(url, '_blank');
+    }
 return (
     <>
     
@@ -13,10 +17,10 @@ return (
    </div>
    <div className="font-[600] hover:cursor-pointer text-[3em] flex flex-row items-center justify-center gap-[1em] rounded-[15px] p-[15px_30px]" style={{background:"linear-gradient(#171921, #0b0a11)"}}>
     
-   <i className="fa-brands fa-instagram hover:text-[1.5em] transition-[all_0.2s] hover:transition-[all_0.2s]" />
-   <i className="fa-brands fa-discord hover:text-[1.5em] transition-[all_0.2s] hover:transition-[all_0.2s]" />
-   <i className="fa-brands fa-spotify hover:text-[1.5em] transition-[all_0.2s] hover:transition-[all_0.2s]" />
-   <i className="fa-brands fa-github hover:text-[1.5em] transition-[all_0.2s] hover:transition-[all_0.2s]" />
+   <i className="fa-brands fa-instagram" onClick={()=>redirect("https://instagram.com/allmylifeisoverthinking")} />
+   <i className="fa-brands fa-discord"  onClick={()=>redirect("https://discord.com/")}/>
+   <i className="fa-brands fa-spotify"  onClick={()=>redirect("https://spotify.com/")}/>
+   <i className="fa-brands fa-github"  onClick={()=>redirect("https://github.com/i358")}/>
    
    </div>
     </div>

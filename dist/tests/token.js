@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Snowflake_1 = require("@util/api/token/Snowflake");
-const Timestamp_1 = require("@util/api/token/Timestamp");
-const crypter_1 = require("@lib/security/crypter");
+const Snowflake_1 = require("../util/api/token/Snowflake");
+const Timestamp_1 = require("../util/api/token/Timestamp");
+const crypter_1 = require("../lib/security/crypter");
 const moment_1 = __importDefault(require("moment"));
 (async () => {
     const Snowflake = new Snowflake_1.Snowflake(1n);

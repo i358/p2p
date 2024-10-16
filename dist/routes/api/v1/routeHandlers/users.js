@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const auth_1 = __importDefault(require("@middleware/api/auth"));
-const userCheck_1 = __importDefault(require("@hooks/api/userCheck"));
-const RedisManager_1 = require("@lib/db/RedisManager");
-const PostgresManager_1 = require("@lib/db/PostgresManager");
+const auth_1 = __importDefault(require("../../../../middleware/api/auth"));
+const userCheck_1 = __importDefault(require("../../../../hooks/api/userCheck"));
+const RedisManager_1 = require("../../../../lib/db/RedisManager");
+const PostgresManager_1 = require("../../../../lib/db/PostgresManager");
 const Redis = new RedisManager_1.RedisManager();
 const router = (0, express_1.Router)();
 const Postgres = new PostgresManager_1.PostgresManager.Postgres();

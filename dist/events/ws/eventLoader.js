@@ -28,12 +28,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 const fs_1 = __importDefault(require("fs"));
-const log_1 = __importDefault(require("@util/log"));
+const log_1 = __importDefault(require("../../util/log"));
 const colors_1 = __importDefault(require("colors"));
 const path = __importStar(require("path"));
 const onConnection_1 = __importDefault(require("./handlers/onConnection"));
 const onDisconnect_1 = __importDefault(require("./handlers/onDisconnect"));
-const auth_1 = __importDefault(require("@middleware/websocket/auth"));
+const auth_1 = __importDefault(require("../../middleware/websocket/auth"));
 function default_1(io) {
     io.on("connection", (socket) => {
         (0, onConnection_1.default)(io, socket);

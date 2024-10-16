@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 //@ts-ignore
 const ascii_table_1 = __importDefault(require("ascii-table"));
-const log_1 = __importDefault(require("@util/log"));
+const log_1 = __importDefault(require("../../util/log"));
 const colors_1 = __importDefault(require("colors"));
-const getIPAddr_1 = __importDefault(require("@hooks/server/getIPAddr"));
+const getIPAddr_1 = __importDefault(require("../../hooks/server/getIPAddr"));
 function default_1(req, res, next) {
     let table = new ascii_table_1.default();
     table
