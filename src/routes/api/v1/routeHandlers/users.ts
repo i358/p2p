@@ -46,24 +46,20 @@ router.post("/", apiAuthMiddleware, async (req: any, res: any) => {
 
 router.post("/all", apiAuthMiddleware, async (req: any, res: any) => {
   try {
-    // Kullanıcıları alın
     let users = await Postgres.Find({
       table: "users",
       pick: ["id", "username", "color", "createdAt"],
     });
 
-    // Online olup olmadığını kontrol edin
     let exists = await Exists("online");
     if (!exists) {
       return res.json({ online: [], offline: users.rows });
     }
 
-    // Online kullanıcıların ID'lerini alın
     let onlineUsers_: string[] = [];
     let onlineUsers: any = await Get("online");
     onlineUsers_ = JSON.parse(onlineUsers);
 
-    // Online kullanıcıların bilgilerini almak için asenkron işlemler oluşturun
     const fetchUserPromises = onlineUsers_.map(async (id: any) => {
       try {
         const usr = await Postgres.FindOne({
@@ -75,14 +71,12 @@ router.post("/all", apiAuthMiddleware, async (req: any, res: any) => {
         return usr;
       } catch (error) {
         console.error(`Error fetching user with id ${id}:`, error);
-        return null; // Hata durumunda null döndür
+        return null; 
       }
     });
 
-    // Tüm asenkron işlemleri bekleyin ve hatalı sonuçları filtreleyin
     let ouList = (await Promise.all(fetchUserPromises)).filter((usr: any) => usr !== null);
 
-    // Online ve offline kullanıcıları dönün
     res.send({
       online: ouList,
       offline: users.rows.filter((u: any) => !ouList.some((onlineUser: any) => onlineUser.id === u.id))

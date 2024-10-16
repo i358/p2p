@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const auth_1 = __importDefault(require("../../../../middleware/api/auth"));
-const userCheck_1 = __importDefault(require("../../../../hooks/api/userCheck"));
-const RedisManager_1 = require("../../../../lib/db/RedisManager");
-const PostgresManager_1 = require("../../../../lib/db/PostgresManager");
+const auth_1 = __importDefault(require("@middleware/api/auth"));
+const userCheck_1 = __importDefault(require("@hooks/api/userCheck"));
+const RedisManager_1 = require("@lib/db/RedisManager");
+const PostgresManager_1 = require("@lib/db/PostgresManager");
 const Redis = new RedisManager_1.RedisManager();
 const router = (0, express_1.Router)();
 const Postgres = new PostgresManager_1.PostgresManager.Postgres();
@@ -46,21 +46,17 @@ router.post("/", auth_1.default, async (req, res) => {
 });
 router.post("/all", auth_1.default, async (req, res) => {
     try {
-        // Kullanıcıları alın
         let users = await Postgres.Find({
             table: "users",
             pick: ["id", "username", "color", "createdAt"],
         });
-        // Online olup olmadığını kontrol edin
         let exists = await Exists("online");
         if (!exists) {
             return res.json({ online: [], offline: users.rows });
         }
-        // Online kullanıcıların ID'lerini alın
         let onlineUsers_ = [];
         let onlineUsers = await Get("online");
         onlineUsers_ = JSON.parse(onlineUsers);
-        // Online kullanıcıların bilgilerini almak için asenkron işlemler oluşturun
         const fetchUserPromises = onlineUsers_.map(async (id) => {
             try {
                 const usr = await Postgres.FindOne({
@@ -73,12 +69,10 @@ router.post("/all", auth_1.default, async (req, res) => {
             }
             catch (error) {
                 console.error(`Error fetching user with id ${id}:`, error);
-                return null; // Hata durumunda null döndür
+                return null;
             }
         });
-        // Tüm asenkron işlemleri bekleyin ve hatalı sonuçları filtreleyin
         let ouList = (await Promise.all(fetchUserPromises)).filter((usr) => usr !== null);
-        // Online ve offline kullanıcıları dönün
         res.send({
             online: ouList,
             offline: users.rows.filter((u) => !ouList.some((onlineUser) => onlineUser.id === u.id))

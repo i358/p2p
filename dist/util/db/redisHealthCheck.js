@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const moment_1 = __importDefault(require("moment"));
-const log_1 = __importDefault(require("../log"));
-const RedisManager_1 = require("../../lib/db/RedisManager");
+const log_1 = __importDefault(require("@util/log"));
+const RedisManager_1 = require("@lib/db/RedisManager");
 const colors_1 = __importDefault(require("colors"));
 const redis = new RedisManager_1.RedisManager();
 let { Get, Set, Delete } = redis;

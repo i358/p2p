@@ -18,7 +18,7 @@ useEffect(() => {
   );
 }, []);
   const navTo = useNavigate();
-  useEffect(() => navTo("/app"), []);
+  useEffect(() => navTo("/outdated"), []);
   return (
     <>
      <div className="flex flex-row">
