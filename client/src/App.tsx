@@ -18,7 +18,7 @@ useEffect(() => {
   );
 }, []);
   const navTo = useNavigate();
-  useEffect(() => navTo("/deprecated"), []);
+  useEffect(() => navTo("/app"), []);
   return (
     <>
      <div className="flex flex-row">

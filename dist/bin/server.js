@@ -15,25 +15,41 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const log_1 = __importDefault(require("../util/log"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const http_1 = require("http");
+const colors_1 = __importDefault(require("colors"));
 const Logger_1 = __importDefault(require("../middleware/server/Logger"));
+const postgres_1 = require("../hooks/db/postgres");
 const SocketManager_1 = require("../lib/ws/SocketManager");
 const path = __importStar(require("path"));
 const cors_1 = __importDefault(require("cors"));
+const api_1 = __importDefault(require("../routes/api/v1/api"));
+const eventLoader_1 = __importDefault(require("../events/ws/eventLoader"));
+const redisHealthCheck_1 = __importDefault(require("../util/db/redisHealthCheck"));
 const axios_1 = __importDefault(require("axios"));
 const Socket = new SocketManager_1.SocketManager();
 let io = Socket.io;
@@ -54,7 +70,7 @@ app.use(Logger_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static(path.join(__dirname, "../../client/dist")));
 app.use(express_1.default.static(path.join(__dirname, "../../public")));
-//app.use("/api/v1", APIV1Router);
+app.use("/api/v1", api_1.default);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
 });
@@ -75,54 +91,29 @@ if (process.env.MODE === "prod") {
         });
     }, 60 * 1000 * 10);
 }
-/*PostgresClient().then(() => {
-    redisHealthCheck();
-    log("{ring} Initializing API and services..", colors.dim);
-    Socket.Connect(
-        httpServer,
-        {
-            path: process.env.SOCKET_PATH,
-            cookie: {
-                name: "handshake-fingerprint",
-                httpOnly: true,
-                sameSite: "strict",
-                maxAge: 30 * 24 * 60 * 60 * 100,
-            },
-            cors: {
-                origin: "*",
-                methods: ["GET", "POST"],
-            },
-
+(0, postgres_1.Client)().then(() => {
+    (0, redisHealthCheck_1.default)();
+    (0, log_1.default)("{ring} Initializing API and services..", colors_1.default.dim);
+    Socket.Connect(httpServer, {
+        path: process.env.SOCKET_PATH,
+        cookie: {
+            name: "handshake-fingerprint",
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: 30 * 24 * 60 * 60 * 100,
         },
-        Number(process.env.PORT),
-        (server: any) => {
-            io = Socket.io;
-            SocketEventLoader(io);
-            log(
-                `{online} API and Socket listening on ${colors.blue(
-                    `http://${server.address().address}:${server.address().port}/`
-                )}`,
-                colors.bold
-            );
-            log(
-                `${
-                    colors.yellow("* To check the API status: ") + colors.blue("GET /")
-                }`,
-                colors.bold
-            );
-            log(
-                `${
-                    colors.yellow("* Socket Pathway: ") +
-                    colors.blue(`${process.env.SOCKET_PATH}`)
-                }`,
-                colors.bold
-            );
-        }
-    );
-});
-*/
-httpServer.listen(80, () => {
-    console.log("ok");
+        cors: {
+            origin: "*",
+            methods: ["GET", "POST"],
+        },
+    }, Number(process.env.PORT), (server) => {
+        io = Socket.io;
+        (0, eventLoader_1.default)(io);
+        (0, log_1.default)(`{online} API and Socket listening on ${colors_1.default.blue(`http://${server.address().address}:${server.address().port}/`)}`, colors_1.default.bold);
+        (0, log_1.default)(`${colors_1.default.yellow("* To check the API status: ") + colors_1.default.blue("GET /")}`, colors_1.default.bold);
+        (0, log_1.default)(`${colors_1.default.yellow("* Socket Pathway: ") +
+            colors_1.default.blue(`${process.env.SOCKET_PATH}`)}`, colors_1.default.bold);
+    });
 });
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);

@@ -36,7 +36,7 @@ app.use(Logger);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use(express.static(path.join(__dirname, "../../public")));
-//app.use("/api/v1", APIV1Router);
+app.use("/api/v1", APIV1Router);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../../client/dist", "index.html"));
@@ -64,7 +64,7 @@ if (process.env.MODE === "prod") {
     }, 60 * 1000 * 10);
 }
 
-/*PostgresClient().then(() => {
+PostgresClient().then(() => {
     redisHealthCheck();
     log("{ring} Initializing API and services..", colors.dim);
     Socket.Connect(
@@ -109,10 +109,8 @@ if (process.env.MODE === "prod") {
         }
     );
 });
-*/
-httpServer.listen(80, ()=>{
-    console.log("ok")
-})
+
+
 
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
