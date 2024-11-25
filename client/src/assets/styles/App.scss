@@ -51,4 +51,10 @@ body,
   background:#06070d;
   color: white;
   background:url("https://peer2p.online/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
 }
